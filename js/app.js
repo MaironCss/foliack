@@ -109,5 +109,157 @@ $('.items-navi button').on('click', function(){
 	$('.items-navi button').addClass('nav-btn');
 })
 })(jQuery);
+//na examp
+ var map;
+ var baOffices;
+      function initMap() {
+      	var markerBA = {lat: 50.006693, lng: 36.237199};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 50.0066429, lng: 36.2366558},
+          zoom: 20,
+           styles: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]
+        });
+        
+
+        baOffices = [
+        	{
+        		city: 'Kharkiv',
+        		position: new google.maps.LatLng(50.006693, 36.237199),
+        	},
+        	{
+        		city: 'Poltava',
+        		position: new google.maps.LatLng(49.588983, 34.5554741),
+        	},
+        	{
+        		city: 'Kramatorsk',
+        		position: new google.maps.LatLng(48.9009301, 36.5196854),
+        	},
+        	{
+        		city: 'Kyiv',
+        		position: new google.maps.LatLng(50.4637267, 30.4977141),
+        	}
+        ]
 
 
+        for (var i = 0; i < baOffices.length; i++){
+
+          var marker = new google.maps.Marker({
+        
+    	position: baOffices[i].position,
+    	title: baOffices[i].city,
+    	icon: 'img/favicon.png',
+   		map: map
+  		});
+      };
+      function addCityToSelect(){
+	for (let j = 0; j < baOffices.length; j++){
+		let opt = document.createElement('option');
+		opt.value = baOffices[j].position;
+		opt.innerHTML = baOffices[j].city;
+		ourSelect.appendChild(opt);
+
+		}
+	}
+addCityToSelect();
+
+
+}
+function newLocation(newLat,newLng){
+	map.setCenter({
+		lat: newLat,
+		lng: newLng
+	});
+}
+var ourSelect = document.querySelector('#mapSelect');
+ourSelect.onchange = function(){
+	let coordinate = this.value.slice(1, -1).split(',');
+	newLocation(parseFloat(coordinate[0]), parseFloat(coordinate[1]));
+};
+
+
+
+
+//na examp
+ const googleMapsScript = document.createElement('script');
+ googleMapsScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAu_qTeVtQzsi87xkRdcjYk7IP4xvDs9bo&callback=initMap";
+ document.head.appendChild(googleMapsScript);
