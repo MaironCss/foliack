@@ -1,0 +1,226 @@
+// контейнер по умолчанию. Отступ между колонками
+$container: 1170px;
+$colGups: 15px;
+
+// размер текста
+$textFont-size: 1rem;  // 16px
+$linkColor: blue;
+
+// контрольные точки, на которых наш макет будет перестраиваться (могут меняться зависимости от дизайна)
+$breakpoints: (
+        xs: 0,
+        sm: 575px,
+        md: 768px,
+        lg: 1025px,
+        xl: 1200px,
+        xxl: 1440px
+);
+
+// количество колонок
+$columns: 12;
+
+// проходимся циклом по всем контрольным точкам
+@each $breakpoint in $breakpoints {
+
+  // в name записываем имя размера (xs, sm, md ...)
+  // в size записываем кол-во колонок, которые должен занимать элемент с эти классом.
+  $name: nth($breakpoint, 1);
+  $size: nth($breakpoint, 2);
+  
+  // генерируем медиа запрос для ширины брейкпоинта, который сейчас является текущим в цикле.
+  @media only screen and (min-width: $size) {
+    [class*="col-#{$name}"] {
+      box-sizing: border-box;
+      flex: 0 0 auto;
+      padding-right: $colGups;
+      padding-left: $colGups;
+    }
+    @for $i from 1 through $columns {
+      .col-#{$name}-#{$i} {
+        flex-basis: 100% / $columns * $i;
+        max-width: 100% / $columns * $i;
+      }
+    }
+    @for $i from 1 through $columns {
+      .col-#{$name}-offset-#{$i} {
+        margin-left: 100% / $columns * $i
+      }
+    }
+  }
+}
+
+*{
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+	
+}
+@import "slick.scss";
+@import "slick-theme.scss";
+
+ul{
+	list-style-type:none;
+}
+a{
+	text-decoration: none;
+}
+@font-face {
+    font-family: 'BigJohn';
+    src: url('../fonts/BigJohn.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/BigJohn.otf')  format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SlimJoe';
+    src: url('../fonts/SlimJoe.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/SlimJoe.otf')  format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+	margin: 0;
+	padding: 0;
+	font-family: 'Lato', sans-serif;
+	font-size: 1rem;
+}
+.container{
+	margin: 0 auto;
+}
+.button{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 134px;
+  height: 35px;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+  color: #48bf72;
+  text-decoration: none;
+  text-transform: uppercase;
+  &:hover, &:focus{
+    color: #fff;
+  }
+}
+
+.ba-header{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 5;
+	
+	&__container{
+		display: flex;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		-webkit-align-items: center;
+		        align-items: center;
+		    
+	}
+}
+
+.menu{
+	display: flex;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	color: #FFF;
+	
+}
+.hero{
+	min-height: 100vh;
+	display: flex;
+	-webkit-align-items: center;
+	        align-items: center;
+	text-align: center;
+	color: #FFF;
+	background: {
+		image: url(../img/hero.jpg);
+		size:cover;
+		};
+	.ba-slider &{
+		display: flex;
+	}
+
+	&-title{
+	font-size: 46px;
+	font-family: 'BigJohn';
+	
+	}
+
+	&-sub-title{
+	font-size: 30px;
+	font-family: 'SlimJoe';
+	line-height: 90px;
+	}
+@media screen and (min-width: 1025px){
+	min-height: 650px;
+}
+}
+.portfolio{
+
+&-navi{
+  display: flex;
+
+  a{
+    padding-top: 5px;
+    display: flex;
+    text-decoration: none;
+    color: #3c4955;
+    border-radius: 2px;
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    min-width: 135px;
+    height: 36px;
+    background-color: #eaeaea;
+    text-align: center;
+    margin: 0 7px;
+    border-radius: 2px;
+    &.active{
+      background-color: #48bf72;
+      color: #fff;
+    }
+  }
+}
+
+  &-item {
+  height: 300px;
+  width: 29.35%;
+  margin: 2%;
+
+    &--red {
+      background-color: red;
+      height: 350px;
+    }
+    &--green {
+      background-color: green;
+      height: 380px;
+    }
+    &--blue {
+      background-color: blue;
+    }
+      &--purple {
+      background-color: purple;
+      height: 280px;
+    }
+    &--pink {
+      background-color: pink;
+      height: 325px;
+    }
+
+    &--yellow {
+      background-color: yellow;
+      height: 375px;
+    }
+}
+}
+.items-navi .nav-btn {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	pointer-events: none;
+}
